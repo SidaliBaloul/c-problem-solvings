@@ -1,0 +1,99 @@
+using namespace std;
+
+struct sDate
+{
+	int year;
+	int month;
+	int day;
+};
+int ReadYear()
+{
+	int num;
+	cout << "please enter the year : ";
+	cin >> num;
+
+	return num;
+}
+int ReadMonth()
+{
+	int num;
+	do
+	{
+		cout << "please enter a month : ";
+		cin >> num;
+
+	} while (num < 1 || num > 12);
+
+	return num;
+}
+int ReadDay()
+{
+	int day;
+	do
+	{
+		cout << "Please enter a day ? ";
+		cin >> day;
+	} while (day < 1 || day > 31);
+
+	return day;
+}
+int AddDay()
+{
+	int day;
+	cout << "how many days to add : ";
+	cin >> day;
+
+	return day;
+}
+
+sDate ReadFullData()
+{
+	sDate date;
+	 date.year = ReadYear();
+	date.month = ReadMonth();
+	date.day = ReadDay();
+
+	return date;
+}
+bool IsLeapYear(int year)
+{
+	return ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0)));
+}
+
+int NumberOfDaysInMonth(int year, int month)
+{
+
+	short arr[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+
+	return ((month == 2) ? (IsLeapYear(year) ? 29 : 28) : arr[month - 1]);
+
+}
+
+int NumberOfDaysFromTheBeginingOfTheYear(int year,int month,int day)
+{
+	int totaldays = 0;
+
+	for (int i = 1; i < month; i++)
+	{
+		totaldays += NumberOfDaysInMonth(year, i);
+	}
+
+	totaldays += day;
+
+	return totaldays;
+}
+
+bool Check(sDate date, sDate date2)
+{
+	return (date.year == date2.year ? ((date.month == date2.month) ? ((date.day == date2.day) ? true : false) : false) : false);
+}
+
+int main()
+{
+	sDate date = ReadFullData();
+	sDate date2 = ReadFullData();
+	
+	if (Check(date, date2))
+		cout << "Yes, Date1 is equal Date2 ";
+	else
+		cout << "No, it is not";

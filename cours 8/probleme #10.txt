@@ -1,0 +1,67 @@
+using namespace std;
+int ReadYear()
+{
+	int num;
+	cout << "please enter the year : ";
+	cin >> num;
+
+	return num;
+}
+int ReadMonth()
+{
+	int num;
+	do
+	{
+		cout << "please enter a month : ";
+		cin >> num;
+
+	} while (num < 1 || num > 12);
+
+	return num;
+}
+int ReadDay()
+{
+	int day;
+	do
+	{
+		cout << "Please enter a day ? ";
+		cin >> day;
+	} while (day < 1 || day > 31);
+
+	return day;
+}
+
+bool IsLeapYear(int year)
+{
+	return ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0)));
+}
+
+int NumberOfDaysInMonth(int year, int month)
+{
+
+	short arr[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+
+	return ((month == 2) ? (IsLeapYear(year) ? 29 : 28) : arr[month - 1]);
+
+}
+
+int NumberOfDaysFromTheBeginingOfTheYear(int year,int month,int day)
+{
+	int totaldays = 0;
+
+	for (int i = 1; i < month; i++)
+	{
+		totaldays += NumberOfDaysInMonth(year, i);
+	}
+
+	totaldays += day;
+
+	return totaldays;
+}
+int main()
+{
+	int year = ReadYear();
+	int month = ReadMonth();
+	int day = ReadDay();
+
+	cout << "number of days from the begining of the year is " << NumberOfDaysFromTheBeginingOfTheYear(year, month, day) << endl;
